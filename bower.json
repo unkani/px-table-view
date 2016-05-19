@@ -30,7 +30,8 @@
     "fastclick": "^1.0.6",
     "hammerjs": "~2.0.8",
     "iron-selector": "PolymerElements/iron-selector#^1.5.1",
-    "paper-swipe": "^1.0.2"
+    "paper-swipe": "^1.0.2",
+    "slip": "^2.0.0"
   },
   "devDependencies": {
     "px-card": "latest",

@@ -12,7 +12,6 @@ To use this component:
 @homepage index.html
 -->
 <dom-module id="px-table-row-actions">
-
   <template>
     <style>
       :host {
@@ -30,16 +29,16 @@ To use this component:
       position: {
         type: String
       },
-      //The action button type
-      type: {
-        type: String
+      //The actions state
+      isOpen: {
+        type: Boolean
       }
     },
-    attached: function() {
+    ready: function() {
       var self = this;
       this.async(function() {
         self.toggleClass('table-row__actions');
-        self.toggleClass('table-row__actions--' + this.position, true);
+        self.toggleClass('table-row__actions--' + self.position, true);
       });
     }
   });

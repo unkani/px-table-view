@@ -32,9 +32,8 @@
 			return (dx / dt) < this.VELOCITY_THRESHOLD;
 		}
 	};
-	var px = window.px || {};
-	px.behaviors = px.behaviors || {};
-	var TableRowSwipeBehavior = {
+
+	var pxTableRowSwipeBehavior = {
 		properties: {
 			/**
 			 * If true, the content will be opened by default
@@ -188,7 +187,7 @@
 		},
 		attached: function() {
 			console.log(this.tagName, 'attached');
-			this.listen( this.$.tableRow, 'track', 'handleTrack');
+			this.listen( this.$._tableRow, 'track', 'handleTrack');
 		},
 		detached: function() {
 			this.removeGestureListeners();

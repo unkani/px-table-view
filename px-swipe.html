@@ -120,17 +120,17 @@ At the end of the demo, there is a code generator that allows you to play around
 
       div.swipeable-container > ::content > [underlay] {
         @apply(--px-swipe-underlay);
-        background: green;
-
-        width: 100vw;
+        background: blue;
+        width: 100vh;
+        min-height: 44px;
       }
 
       div.swipeable-container > ::content > [content] {
         will-change: transform;
         @apply(--px-swipe-content);
         background: red;
-        
-        width: 100vw;
+        width: 100vh;
+        min-height: 44px;
       }
 
       ::content [content].transition {

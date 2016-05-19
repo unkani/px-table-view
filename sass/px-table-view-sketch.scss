@@ -36,27 +36,26 @@
   //background-color: var(--table-view-background-color, $table-row-background-color);
 
   .table-row {
-  
-
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: $table-row-border-color;
+    border-bottom-color: var(--table-row-border-color, $table-row-border-color);
     ///
     &:first-child {
-      border-bottom: none;
+      //border-bottom: none;
     }
     ///
     &:last-child {
-      border-bottom: none;
+      //border-bottom: none;
     }
     ///
     &:first-child:last-child {
-      border-top   : none;
-      border-bottom: none;
+      //border-top   : none;
+      //border-bottom: none;
     }
     ///
     &:not(:last-child) {
-      border-bottom-style: solid;
-      border-bottom-width: 1px;
-      border-bottom-color: $table-row-border-color;
-      border-bottom-color: var(--table-row-border-color, $table-row-border-color);
+
     }
   }
 

@@ -4,6 +4,7 @@
 @import "mixins";
 ///
 @include block ('table-row') {
+  
   ///---------------------------------------------------------------------------
   ///.table-row__actions
   @include element ('actions') {

@@ -1255,14 +1255,7 @@
 
 .table-view {
   border: none; }
-  .table-view .table-row:first-child {
-    border-bottom: none; }
-  .table-view .table-row:last-child {
-    border-bottom: none; }
-  .table-view .table-row:first-child:last-child {
-    border-top: none;
-    border-bottom: none; }
-  .table-view .table-row:not(:last-child) {
+  .table-view .table-row {
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: #b1b1bc;

@@ -1,7 +1,7 @@
 <!--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.6/hammer.min.js"></script>
 -->
-<script src="../hammerjs/hammer.min.js"></script>
+<script src="../hammerjs/hammer.js"></script>
 <script type="text/javascript">
   if (!window.Hammer) {
     console.error('Must provide hammer.js');
@@ -138,7 +138,7 @@
    *
    * @polymerBehavior
    */
-  var pxTableRowActionsSwipeBehavior = {
+  var pxTableRowSwipeActionsBehavior = {
     created: function () {
       if (this.actionable) {
         console.log('Before swipe handlers');
