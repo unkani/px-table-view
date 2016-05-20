@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>px-table-row / controls</title>
+    <link rel="stylesheet" href="//predixdev.github.io/px-library-design/css/style.css">
+    <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+
+    <link rel="import" href="../px-table-view.html">
+
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html"/>
+    <style>
+
+      px-card {
+        border: 1px solid #b1b1bc;
+        margin: 0.2rem;
+        padding: 0.5rem;
+        flex: 1 1 300px;
+      }
+
+      px-card ul {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="viewport">
+      <div class="box u-mt u-mb">
+        <h1>Table Row Controls</h1>
+        <p>
+          Table controls provide information, indicate a state, or present actions for table row items. Table controls appear as icons to the left or right of row text.
+        </p>
+        <p>
+          Table control placement:
+        </p>
+        <ul>
+          <li>States and primary actions are placed on the left side of a list row.</li>
+          <li>Secondary actions and info are placed on the right side of the row.
+          </li>
+        </ul>
+        <h4>Types</h4>
+        <ul>
+          <li>Checkbox</li>
+          <li>Switch</li>
+          <li>Reorder</li>
+          <li>Expand/collapse</li>
+        </ul>
+      </div>
+
+      <!-- TODO: Checkbox -->
+      <h2>Checkbox</h2>
+      <div class="box">
+        <p>
+          A checkbox can be either a primary or secondary action.
+        </p>
+
+        <demo-snippet>
+          <template>
+            <template id="tmpl-checkbox" is="dom-bind">
+              <ul class="table-view table-view--small">
+                <li class="table-row table-row--tappable">
+                  <label for="cb3">Native Checkbox
+                    <input type="checkbox" name="cb3">
+                  </label>
+                </li>
+                <li class="table-row table-row--tappable">
+                  <label for="cb4" class="table-row__checkbox">Native Styled Checkbox
+                    <input type="checkbox" name="cb4">
+                      <div class="table-row__checkbox__checkmark "></div>
+                  </label>
+                </li>
+                <li class="table-row table-row--tappable">
+                  <px-table-row-checkbox name="cb1" checked="{{cb1}}" label="Line item selected"></px-table-row-checkbox>
+                </li>
+                <li class="table-row table-row--tappable">
+                  <px-table-row-checkbox name="cb2" disabled label="Line item selected"></px-table-row-checkbox>
+                </li>
+                <li>
+                  <button class="btn" disabled="{{!cb1}}">Submit</button>
+                </li>
+              </ul>
+            </template>
+            <script>
+              var tmpl = document.getElementById('tmpl-checkbox');
+              tmpl.cb1 = true;
+            </script>
+          </template>
+        </demo-snippet>
+      </div>
+
+      <!-- TODO: Switch -->
+
+      <!-- TODO: Re Order -->
+
+      <!-- TODO: Expand/Collapse -->
+
+    </div>
+    <script src="http://localhost:35724/livereload.js?snipver=1"></script>
+  </body>
+
+</html>
