@@ -1,10 +1,10 @@
 /// @group px-table-view
 /// Mixins
-@import "variables";
-@import "mixins";
+@import "../variables";
+@import "../mixins";
 ///
 @include block ('table-row') {
-  
+
   ///---------------------------------------------------------------------------
   ///.table-row__actions
   @include element ('actions') {

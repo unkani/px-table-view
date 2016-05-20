@@ -30,7 +30,8 @@
 
     console.log('Container children', container.children);
 
-    this.actions = container.queryEffectiveChildren('px-table-row-actions');
+    //this.actions = container.queryEffectiveChildren('px-table-row-actions');
+    this.actions = container.$.actions;
     console.warn('SwipeActions', 'actions', this.actions);
 
     this.panes = Array.prototype.slice.call(this.container.querySelector('.table-row__content'), 0);
@@ -87,9 +88,9 @@
           translate = 'translate3d(0, ' + pos + 'px, 0)';
         }
 
-        //this.container.transform(translate);
+        this.container.transform(translate);
         this.actions.transform(translate);
-        //this.panes[paneIndex].style.transform = translate; this.panes[paneIndex].style.mozTransform = translate; this.panes[paneIndex].style.webkitTransform = translate;
+        this.panes[paneIndex].style.transform = translate; this.panes[paneIndex].style.mozTransform = translate; this.panes[paneIndex].style.webkitTransform = translate;
 
         console.log(className, 'translate', translate);
 
@@ -147,7 +148,7 @@
     attached: function () {
       if (this.actionable) {
        console.log('Adding swipe handlers');
-        this._actions = new SwipeActions(this, Hammer.DIRECTION_HORIZONTAL);
+        new SwipeActions(this, Hammer.DIRECTION_HORIZONTAL);
       }
 
     }

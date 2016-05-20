@@ -1,297 +1,247 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <title>px-table-row-action-button</title>
+  <title>px-table-row-action-button</title>
 
+  <link rel='stylesheet ' href='/px.css'>
 
-    <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
 
-    <link rel="import" href="../../px-card/px-card.html">
-    <link rel="import" href="../../polymer/polymer.html">
-    <link rel="import" href="../px-swipe-container.html">
-    <link rel="import" href="../px-table-view.html">
+  <link rel="import" href="../../px-card/px-card.html">
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../px-swipe-container.html">
+  <link rel="import" href="../px-table-view.html">
+  <link rel="import" href="../../px-carousel/px-carousel.html">
 
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html"/>
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html"/>
 
+  <style media="screen">
+    body,
+    html {
+      background: #eee;
+    }
 
-    <style media="screen">
-      px-swipe {
+    *,
+    *:after,
+    *:before {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+    }
 
-      }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      min-height: 100%;
+    }
 
-    </style>
-  </head>
+    .bg1,
+    .green {
+      background: #42d692;
+    }
 
-  <body unresolved>
-    <div class="viewport">
+    .bg2,
+    .blue {
+      background: #4986e7;
+    }
 
+    .bg3,
+    .red {
+      background: #d06b64;
+    }
 
-      <h1>Swipe Container</h1>
-      <demo-snippet>
+    .bg4,
+    .purple {
+      background: #cd74e6;
+    }
 
-        <template>
+    .azure,
+    .bg5 {
+      background: #9fe1e7;
+    }
 
-          <px-swipe-container class="table-view">
-            <px-table-row title="Swipeable Item"></px-table-row>
-            <px-table-row title="Swipeable Item"></px-table-row>
-            <px-table-row title="Swipeable Item"></px-table-row>
-            <px-table-row title="Swipeable Item"></px-table-row>
-            <px-table-row title="Swipeable Item"></px-table-row>
+    #carousel1 {
+      height: 50vh;
+    }
+  </style>
+</head>
 
-          </px-swipe-container>
-        </template>
-      </demo-snippet>
+<body unresolved>
+<div class="viewport">
 
-
-      <h2>Action Button HTML</h2>
-      <demo-snippet>
-        <template>
-          <px-table-view>
-
-            <px-table-row id="tablerow1" title="Action Item" actionable>
-              <div actions>
-                  <px-table-row-action-button label="More" type="more"></px-table-row-action-button>
-                  <px-table-row-action-button label="Flag" type="flag"></px-table-row-action-button>
-                  <px-table-row-action-button label="Delete" type="delete"></px-table-row-action-button>
+  <h1>px-carousel + px-table-row</h1>
+  <demo-snippet>
+    <template>
+      <template is="dom-bind" id="carouselTmpl1">
+        <h3>Selected Index: <span>{{selected}}</span></h3>
+        <ul class="table-view">
+          <li class="table-row">
+            <px-carousel id="carousel0" selected="{{selected}}">
+              <div class="pane bg1">
+                Content
               </div>
-            </px-table-row>
-
-            <px-table-row id="tablerow1" title="Action Item" actionable>
-              <div actions>
-                  <px-table-row-action-button label="More" type="more"></px-table-row-action-button>
-                  <px-table-row-action-button label="Flag" type="flag"></px-table-row-action-button>
-                  <px-table-row-action-button label="Delete" type="delete"></px-table-row-action-button>
+              <div class="pane bg5">
+                Actions
               </div>
-            </px-table-row>
+            </px-carousel>
+          </li>
+        </ul>
+      </template>
+      <script>
+        var tmpl = document.getElementById('carouselTmpl1');
+        tmpl.selected = 0;
+      </script>
+    </template>
+  </demo-snippet>
 
 
-
-              <div class="table-row">
-                <px-swipe on-edge="resetPanel" on-tap-underlay="disablePanel">
-                  <div underlay>
-                    <div class="flex">
-                      <button class="table-row__button btn--full table-row__button--more">
-                        <i class="fa fa-ellipsis-h fa-lg"></i>
-                      </button>
-                      <button class="table-row__button btn--full table-row__button--flag">
-                        <i class="fa fa-flag fa-lg"></i>
-                      </button>
-                      <button class="table-row__button btn--full table-row__button--delete">
-                        <i class="fa fa-trash-o fa-lg"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div content>Swipe to remove the panel...</div>
-                </px-swipe>
-              </div>
-
-
-              <div class="table-row">
-                <px-swipe on-edge="resetPanel">
-                    <div underlay on-click="disablePanel">Click to reset the panel from the edge to its origin...</div>
-                    <div content>Swipe to remove the panel...</div>
-                </px-swipe>
-              </div>
-
-          </px-table-view>
-
-        </template>
-      </demo-snippet>
-
-      <h2>Action Button Component</h2>
-      <demo-snippet>
-        <template>
-          <px-table-row id="tablerow1" title="Action Item" actionable>
-            <px-table-row-actions id="actions1" position="left">
-              <px-table-row-action-button label="More" type="more"></px-table-row-action-button>
-              <px-table-row-action-button label="Flag" type="flag"></px-table-row-action-button>
-              <px-table-row-action-button label="Delete" type="delete"></px-table-row-action-button>
-            </px-table-row-actions>
-          </px-table-row>
-        </template>
-      </demo-snippet>
-
-      <demo-snippet>
-        <template>
-          <px-table-view class="table-view--small">
-            <px-table-row id="tablerow2" title="Action Item" actionable>
-              <px-table-row-actions id="actions2" position="left">
-                <px-table-row-action-button label="More" type="more"></px-table-row-action-button>
-                <px-table-row-action-button label="Flag" type="flag"></px-table-row-action-button>
-                <px-table-row-action-button label="Delete" type="delete"></px-table-row-action-button>
-              </px-table-row-actions>
-            </px-table-row>
-          </px-table-view>
-        </template>
-      </demo-snippet>
-
-      <h2>Default with Swipe - Left Actions</h2>
-      <demo-snippet>
-        <template>
-          <div>
-            <button class="btn btn--full btn-toggle-actions u-mb+">Toggle Actions</button>
-            <section class="table-view table-view--small">
-              <px-table-row title="Action Item" actionable >
-                <px-table-row-actions id="actions3" position="left" class="is-visible">
-                  <px-table-row-action-button label="More" type="more"></px-table-row-action-button>
-                  <px-table-row-action-button label="Flag" type="flag"></px-table-row-action-button>
-                  <px-table-row-action-button label="Delete" type="delete"></px-table-row-action-button>
-                </px-table-row-actions>
-              </px-table-row>
-              <px-table-row title="Action Item" actionable>
-                <px-table-row-actions position="left">
-                  <px-table-row-action-button label="More" type="more"></px-table-row-action-button>
-                  <px-table-row-action-button label="Flag" type="flag"></px-table-row-action-button>
-                  <px-table-row-action-button label="Delete" type="delete"></px-table-row-action-button>
-                </px-table-row-actions>
-              </px-table-row>
-              <px-table-row title="Action Item" actionable >
-                <px-table-row-actions position="left">
-                  <px-table-row-action-button label="More" type="more"></px-table-row-action-button>
-                  <px-table-row-action-button label="Flag" type="flag"></px-table-row-action-button>
-                  <px-table-row-action-button label="Delete" type="delete"></px-table-row-action-button>
-                </px-table-row-actions>
-              </px-table-row>
-            </section>
+  <h1>px-carousel</h1>
+  <demo-snippet>
+    <template>
+      <template is="dom-bind" id="carouselTmpl2">
+        <h3>Selected Index: <span>{{selected}}</span></h3>
+        <input value="{{selected}}">
+        <px-carousel id="carousel1" selected="{{selected}}">
+          <div class="pane bg1">
+            <px-carousel direction="vertical">
+              <div class="pane" style="background: rgba(0,0,0,0);">page 1.1</div>
+              <div class="pane" style="background: rgba(0,0,0,.2);">1.2</div>
+              <div class="pane" style="background: rgba(0,0,0,.4);">1.3</div>
+              <div class="pane" style="background: rgba(0,0,0,.6);">1.4</div>
+              <div class="pane" style="background: rgba(0,0,0,.8);">1.5</div>
+            </px-carousel>
           </div>
-        </template>
-      </demo-snippet>
-
-      <h2>Default with Swipe - Left Actions with Icons</h2>
-      <demo-snippet>
-        <template>
-          <div>
-            <button class="btn btn--full btn-toggle-actions u-mb+">Toggle Actions</button>
-            <ul class="table-view table-view--small">
-              <li class="table-row table-row--actionable">
-                <div class="table-row__content">
-                  <span class="table-row__title">Text Label</span>
-                </div>
-                <div class="table-row__actions table-row__actions--left">
-                  <button class="table-row__button btn--full table-row__button--more">
-                    <i class="fa fa-ellipsis-h fa-lg"></i>
-                  </button>
-                  <button class="table-row__button btn--full table-row__button--flag">
-                    <i class="fa fa-flag fa-lg"></i>
-                  </button>
-                  <button class="table-row__button btn--full table-row__button--delete">
-                    <i class="fa fa-trash-o fa-lg"></i>
-                  </button>
-                </div>
-              </li>
-              <px-table-row title="Action Item" actionable>
-                <px-table-row-actions position="left">
-                  <px-table-row-action-button icon="fa fa-ellipsis-h" type="more"></px-table-row-action-button>
-                  <px-table-row-action-button icon="fa fa-flag" type="flag"></px-table-row-action-button>
-                  <px-table-row-action-button icon="fa fa-trash" type="delete"></px-table-row-action-button>
-                </px-table-row-actions>
-              </px-table-row>
-              <px-table-row title="Action Item" actionable>
-                <px-table-row-actions position="left">
-                  <px-table-row-action-button icon="fa fa-ellipsis-h" type="more"></px-table-row-action-button>
-                  <px-table-row-action-button icon="fa fa-flag" type="flag"></px-table-row-action-button>
-                  <px-table-row-action-button icon="fa fa-trash" type="delete"></px-table-row-action-button>
-                </px-table-row-actions>
-              </px-table-row>
-            </ul>
+          <div class="pane bg1">
+            <px-carousel direction="vertical">
+              <div class="pane" style="background: rgba(0,0,0,0);">page 1.1</div>
+              <div class="pane" style="background: rgba(0,0,0,.2);">1.2</div>
+              <div class="pane" style="background: rgba(0,0,0,.4);">1.3</div>
+              <div class="pane" style="background: rgba(0,0,0,.6);">1.4</div>
+              <div class="pane" style="background: rgba(0,0,0,.8);">1.5</div>
+            </px-carousel>
           </div>
-        </template>
-      </demo-snippet>
-
-      <h2>Default with Swipe - Right Actions</h2>
-      <demo-snippet>
-        <template>
-          <div>
-            <button class="btn btn--full btn-toggle-actions u-mb+">Toggle Actions</button>
-            <px-table-view>
-              <px-table-row title="Action Item" actionable type="nav-right">
-                <px-table-row-actions position="right" class="is-visible">
-                  <button class="table-row__button btn--full table-row__button--more">
-                    More</button>
-                  <button class="table-row__button btn--full table-row__button--flag">
-                    Flag</button>
-                  <button class="table-row__button btn--full table-row__button--delete">
-                    Delete</button>
-                </px-table-row-actions>
-              </px-table-row>
-              <px-table-row title="Action Item" actionable type="nav-right">
-                <px-table-row-actions position="right" class="is-visible">
-                  <button class="table-row__button btn--full table-row__button--more">
-                    More</button>
-                  <button class="table-row__button btn--full table-row__button--flag">
-                    Flag</button>
-                  <button class="table-row__button btn--full table-row__button--delete">
-                    Delete</button>
-                </px-table-row-actions>
-              </px-table-row>
-
-              <px-table-row title="Correct Action Item" actionable type="nav-right">
-                <px-table-row-actions position="right" class="is-visible">
-                  <button class="table-row__button btn--full table-row__button--more">
-                    More</button>
-                  <button class="table-row__button btn--full table-row__button--flag">
-                    Flag</button>
-                  <button class="table-row__button btn--full table-row__button--delete">
-                    Delete</button>
-                </px-table-row-actions>
-              </px-table-row>
-            </px-table-view>
+          <div class="pane bg2">
+            <px-carousel direction="vertical">
+              <div class="pane" style="background: rgba(0,0,0,0);">2.1</div>
+              <div class="pane" style="background: rgba(0,0,0,.2);">2.2</div>
+              <div class="pane" style="background: rgba(0,0,0,.4);">2.3</div>
+              <div class="pane" style="background: rgba(0,0,0,.6);">2.4</div>
+              <div class="pane" style="background: rgba(0,0,0,.8);">2.5</div>
+            </px-carousel>
           </div>
-        </template>
-      </demo-snippet>
-
-      <h2>Default with Swipe - Right Actions with Icons</h2>
-      <demo-snippet>
-        <template>
-          <div>
-            <button class="btn btn--full btn-toggle-actions u-mb+">Toggle Actions</button>
-            <section class="table-view table-view--small">
-              <div class="table-row table-row--actionable">
-                <div class="table-row__content">
-                  <span class="table-row__title">Text Label</span>
-                </div>
-                <div class="table-row__actions table-row__actions--right table-row__actions--right--is-visible">
-                  <button class="table-row__button btn--full table-row__button--more">
-                    <i class="fa fa-ellipsis-h fa-lg"></i>
-                  </button>
-                  <button class="table-row__button btn--full table-row__button--flag">
-                    <i class="fa fa-flag fa-lg"></i>
-                  </button>
-                  <button class="table-row__button btn--full table-row__button--delete">
-                    <i class="fa fa-trash-o fa-lg"></i>
-                  </button>
-                </div>
-              </div>
-              <px-table-row title="Action Item" actionable>
-                <px-table-row-actions position="right">
-                  <px-table-row-action-button icon="fa fa-ellipsis-h" type="more"></px-table-row-action-button>
-                  <px-table-row-action-button icon="fa fa-flag" type="flag"></px-table-row-action-button>
-                  <px-table-row-action-button icon="fa fa-trash" type="delete"></px-table-row-action-button>
-                </px-table-row-actions>
-              </px-table-row>
-              <px-table-row title="Action Item" actionable>
-                <px-table-row-actions position="right">
-                  <button class="table-row__button btn--full table-row__button--more">
-                    <i class="fa fa-ellipsis-h fa-lg"></i>
-                  </button>
-                  <button class="table-row__button btn--full table-row__button--flag">
-                    <i class="fa fa-flag fa-lg"></i>
-                  </button>
-                  <button class="table-row__button btn--full table-row__button--delete">
-                    <i class="fa fa-trash-o fa-lg"></i>
-                  </button>
-                </px-table-row-actions>
-              </px-table-row>
-            </section>
+          <div class="pane bg3">
+            <px-carousel direction="vertical">
+              <div class="pane" style="background: rgba(0,0,0,0);">3.1</div>
+              <div class="pane" style="background: rgba(0,0,0,.2);">3.2</div>
+              <div class="pane" style="background: rgba(0,0,0,.4);">3.3</div>
+              <div class="pane" style="background: rgba(0,0,0,.6);">3.4</div>
+              <div class="pane" style="background: rgba(0,0,0,.8);">3.5</div>
+            </px-carousel>
           </div>
-        </template>
-      </demo-snippet>
-    </div>
-    <script src="http://localhost:35724/livereload.js?snipver=1"></script>
-  </body>
+          <div class="pane bg4">
+            <px-carousel direction="vertical">
+              <div class="pane" style="background: rgba(0,0,0,0);">4.1</div>
+              <div class="pane" style="background: rgba(0,0,0,.2);">4.2</div>
+              <div class="pane" style="background: rgba(0,0,0,.4);">4.3</div>
+              <div class="pane" style="background: rgba(0,0,0,.6);">4.4</div>
+              <div class="pane" style="background: rgba(0,0,0,.8);">4.5</div>
+            </px-carousel>
+          </div>
+          <div class="pane bg5">
+            <px-carousel direction="vertical">
+              <div class="pane" style="background: rgba(0,0,0,0);">5.1</div>
+              <div class="pane" style="background: rgba(0,0,0,.2);">5.2</div>
+              <div class="pane" style="background: rgba(0,0,0,.4);">5.3</div>
+              <div class="pane" style="background: rgba(0,0,0,.6);">5.4</div>
+              <div class="pane" style="background: rgba(0,0,0,.8);">5.5</div>
+            </px-carousel>
+          </div>
+        </px-carousel>
+      </template>
+      <script>
+        var tmpl = document.getElementById('carouselTmpl1');
+        tmpl.selected = 0;
+      </script>
+    </template>
+  </demo-snippet>
+
+
+  <h1>Swipe Carousel</h1>
+  <demo-snippet>
+    <template>
+      <px-carousel>
+        <div class="pane bg1">
+          <px-carousel direction="vertical">
+            <div class="pane" style="background: rgba(0,0,0,0);">page 1.1</div>
+            <div class="pane" style="background: rgba(0,0,0,.2);">1.2</div>
+            <div class="pane" style="background: rgba(0,0,0,.4);">1.3</div>
+            <div class="pane" style="background: rgba(0,0,0,.6);">1.4</div>
+            <div class="pane" style="background: rgba(0,0,0,.8);">1.5</div>
+          </px-carousel>
+        </div>
+        <div class="pane bg2">
+          <px-carousel direction="vertical">
+            <div class="pane" style="background: rgba(0,0,0,0);">2.1</div>
+            <div class="pane" style="background: rgba(0,0,0,.2);">2.2</div>
+            <div class="pane" style="background: rgba(0,0,0,.4);">2.3</div>
+            <div class="pane" style="background: rgba(0,0,0,.6);">2.4</div>
+            <div class="pane" style="background: rgba(0,0,0,.8);">2.5</div>
+          </px-carousel>
+        </div>
+        <div class="pane bg3">
+          <px-carousel direction="vertical">
+            <div class="pane" style="background: rgba(0,0,0,0);">3.1</div>
+            <div class="pane" style="background: rgba(0,0,0,.2);">3.2</div>
+            <div class="pane" style="background: rgba(0,0,0,.4);">3.3</div>
+            <div class="pane" style="background: rgba(0,0,0,.6);">3.4</div>
+            <div class="pane" style="background: rgba(0,0,0,.8);">3.5</div>
+          </px-carousel>
+        </div>
+        <div class="pane bg4">
+          <px-carousel direction="vertical">
+            <div class="pane" style="background: rgba(0,0,0,0);">4.1</div>
+            <div class="pane" style="background: rgba(0,0,0,.2);">4.2</div>
+            <div class="pane" style="background: rgba(0,0,0,.4);">4.3</div>
+            <div class="pane" style="background: rgba(0,0,0,.6);">4.4</div>
+            <div class="pane" style="background: rgba(0,0,0,.8);">4.5</div>
+          </px-carousel>
+        </div>
+        <div class="pane bg5">
+          <px-carousel direction="vertical">
+            <div class="pane" style="background: rgba(0,0,0,0);">5.1</div>
+            <div class="pane" style="background: rgba(0,0,0,.2);">5.2</div>
+            <div class="pane" style="background: rgba(0,0,0,.4);">5.3</div>
+            <div class="pane" style="background: rgba(0,0,0,.6);">5.4</div>
+            <div class="pane" style="background: rgba(0,0,0,.8);">5.5</div>
+          </px-carousel>
+        </div>
+      </px-carousel>
+    </template>
+  </demo-snippet>
+
+  <h1>Swipe Container</h1>
+  <demo-snippet>
+
+    <template>
+
+      <px-swipe-container class="table-view">
+        <px-table-row title="Swipeable Item"></px-table-row>
+        <px-table-row title="Swipeable Item"></px-table-row>
+        <px-table-row title="Swipeable Item"></px-table-row>
+        <px-table-row title="Swipeable Item"></px-table-row>
+        <px-table-row title="Swipeable Item"></px-table-row>
+
+      </px-swipe-container>
+    </template>
+  </demo-snippet>
+
+</div>
+<script src="http://localhost:35724/livereload.js?snipver=1"></script>
+</body>
 
 </html>

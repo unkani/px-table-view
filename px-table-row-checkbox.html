@@ -15,15 +15,18 @@ To use this component:
   <style>
   :host {
     display: block;
+    width: 100%;
   }
 
   </style>
   <template>
-    <label class="table-row__checkbox needsclick" for$="{{name}}">
-      <input id$="{{name}}" type="checkbox" name$="{{name}}" value$="{{value}}">
-      <div class="table-row__checkbox__checkmark "></div>
-      <span>{{label}}</span>
-    </label>
+    <div class="table-row__content">
+      <label class="table-row__checkbox needsclick" for$="{{name}}">
+        <input id$="{{name}}" type="checkbox" name$="{{name}}" value$="{{value}}">
+        <div class="table-row__checkbox__checkmark "></div>
+        <span>{{label}}</span>
+      </label>
+    </div>
   </template>
   <script>
   Polymer({

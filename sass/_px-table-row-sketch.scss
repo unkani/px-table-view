@@ -1,0 +1,248 @@
+/// @group px-table-view
+/// Mixins
+@import "variables";
+@import "mixins";
+@import "elements/_table-row__checkbox";
+@import "elements/_table-row__inputs";
+@import "elements/_table-row__switch";
+@import "elements/_table-row__title";
+@import "elements/_table-row__actions";
+
+/// Table Row
+/// @group px-table-row
+/// @access public
+@include block ('table-row') {
+  @include clearfix();
+  @include noselect();
+  padding       : $inuit-base-spacing-unit--small;
+  min-height    : 44px;
+  align-self    : center;
+  line-height   : 44px;
+  width         : 100%;
+
+  outline       : none;
+  position      : relative;
+  overflow      : hidden;
+  display       : flex;
+  flex-direction: row;
+  margin        : 0;
+  appearance    : normal;
+  user-select   : none;
+
+  ///
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin     : 0;
+    padding    : 0;
+    line-height: normal;
+    white-space: normal;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  ///
+   > *:not(input),
+   > *:not(textarea),
+  > *:not(select) {
+    //-webkit-touch-callout      : none;
+    -webkit-text-size-adjust   : none;
+    //  -webkit-user-select        : none;
+    -webkit-highlight          : none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  }
+
+  ///
+  > a {
+    text-decoration: none;
+    color          : $table-row-font-color;
+    @include tableRowClickable($table-row-active-background-color, $table-row-active-font-color);
+  }
+
+  ///---------------------------------------------------------------
+  //.table-row--header
+  @include modifier ('header') {
+    box-sizing   : border-box;
+    padding      : $table-row-header-padding;
+    border-top   : none;
+    border-bottom: none;
+    min-height   : 24px;
+    line-height  : 24px;
+  }
+
+  @include modifier ('switch') {
+    .table-row__content {
+      flex-direction: row;
+    }
+  }
+
+  ///.table-row--collapsable
+  @include modifier ('collapsable') {
+    @include tableRowClickable($table-row-active-background-color, $table-row-active-font-color);
+    @include tableRowIcon( '\f107');
+
+    .table-row__body {
+      height  : 0;
+      overflow: hidden;
+    }
+
+    @include modifier ('is-open') {
+      @include tableRowIcon( '\f106');
+
+      .table-row__body {
+        height: auto;
+      }
+    }
+  }
+
+  ///.table-row--actionable
+  @include modifier ('actionable') {
+    padding-right: 0 !important;
+
+    .table-row__content {
+      transition: all 0.5s;
+      position  : relative;
+      z-index   : 10;
+    }
+  }
+  ///.table-row--collapsable
+  @include modifier ('collapsable') {
+    .table-row__body {
+      transition: all 0.5s;
+      display   : none;
+    }
+
+    @include modifier ('is-open') {
+      .table-row__body {
+        display: block;
+      }
+    }
+  }
+
+  ///.table-row__content
+  @include element ('content') {
+    display       : flex;
+    flex-direction: column;
+    align-self    : center;
+    order         : 2;
+    width         : 100%;
+    user-select   : none;
+    white-space   : nowrap;
+    ///.table-row__content--flush
+    @include modifier ('row') {
+      flex-direction: row;
+    }
+
+  }
+  ///---------------------------------------------------------------------------
+  ///.table-row__title
+  @include element ('title') {
+    order      : 3;
+    align-self : stretch;
+    user-select: none;
+    white-space: nowrap;
+    line-height: normal;
+    flex       : 1;
+  }
+  ///---------------------------------------------------------------------------
+  ///.table-row__title
+  @include element ('subtitle') {
+    order      : 4;
+    align-self : stretch;
+    white-space: nowrap;
+    line-height: normal;
+    flex       : 1;
+  }
+  ///.table-row__body
+  @include element ('body') {
+    order      : 5;
+    line-height: normal;
+    white-space: normal;
+    align-self : stretch;
+    flex       : 1 0 auto;
+    padding-right: $inuit-base-spacing-unit;
+  }
+  ///---------------------------------------------------------------------------
+  ///.table-row__label
+  @include element ('label') {
+    order       : 0;
+    flex        : 1 0 auto;
+    align-self  : center;
+    //padding-right: $inuit-base-spacing-unit;
+    margin-left: $inuit-base-spacing-unit--small;
+    margin-right: $inuit-base-spacing-unit--small;
+    ///
+    @include modifier ('right') {
+      text-align : left;
+      order      : 4;
+
+    }
+    ///
+    @include modifier ('left') {
+      text-align  : right;
+
+    }
+    ///
+    @include media-breakpoint-up (sm) {}
+  }
+
+  ///---------------------------------------------------------------------------
+  ///.table-row__reorder-btn
+  @include element ('reorder-btn') {
+    float   : right;
+    position: absolute;
+    right   : 5%;
+    top     : 25%;
+  }
+  ///---------------------------------------------------------------------------
+  ///.table-row__media
+  @include element ('media') {
+    order          : 1;
+    display        : flex;
+    align-self     : center;
+    justify-content: space-around;
+
+    ///.table-row__media--left
+    @include modifier ('left') {
+      order: 0;
+    }
+    ///---------------------------------------------------------------------------
+    ///.table-row__media--right
+    @include modifier ('right') {
+      order: 9;
+    }
+
+    ///---------------------------------------------------------------------------
+    ///.table-row__media--image
+    @include modifier ('image') {
+      flex   : 1 0 auto;
+      margin: $inuit-base-spacing-unit--small;
+
+      img {
+        display   : block;
+        max-width : 80px;
+        max-height: 80px;
+      }
+    }
+
+
+    ///---------------------------------------------------------------------------
+    ///.table-row__media--icon
+    @include modifier ('icon') {
+      flex      : 1 0 auto;
+      align-self: center;
+      //padding   : $inuit-base-spacing-unit--small;
+      margin-right: $inuit-base-spacing-unit--small;
+      margin-left: $inuit-base-spacing-unit--small;
+      text-align: center;
+
+    }
+  }
+
+}

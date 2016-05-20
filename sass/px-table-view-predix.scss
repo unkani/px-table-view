@@ -17,8 +17,9 @@
 @import "mixins";
 ///
 
-///
-@import "_px-table-row-predix.scss";
+
+
+
 ///
 /// @group px-table-view
 /// -------------------------
@@ -85,27 +86,32 @@
   ///.table-view--tiny
   @include modifier ('tiny') {
     .table-row {
-      padding: $table-view-padding--tiny;
+      padding: $inuit-base-spacing-unit--tiny;
+    }
+  }
+  @include modifier ('regular') {
+    .table-row {
+      padding: $inuit-base-spacing-unit;
     }
   }
   ///.table-view--small
   @include modifier ('small') {
     .table-row {
-      padding: $table-view-padding--small;
+      padding: $inuit-base-spacing-unit--small;
     }
   }
 
   ///.table-view--large
   @include modifier ('large') {
     .table-row {
-      padding: $table-view-padding--large;
+      padding: $inuit-base-spacing-unit--large;
     }
   }
 
   ///.table-view--huge
   @include modifier ('huge') {
     .table-row {
-      padding: $table-view-padding--huge;
+      padding: $inuit-base-spacing-unit--huge;
     }
   }
 
