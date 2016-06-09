@@ -46,7 +46,7 @@ $gray: #ccc;
   }
 
   .disabled {
-    opacity: 0.5;
+    opacity: .5;
     cursor : disabled;
   }
 
@@ -60,7 +60,7 @@ $gray: #ccc;
 /// @group drilldown
 ////
 /// Transition property to use for animating menus.
-$drilldown-transition: transform 0.14s linear !default;
+$drilldown-transition: transform .15s linear !default;
 /// Adds arrows to drilldown items with submenus
 $drilldown-arrows: true !default;
 /// Sets drilldown arrow color if arrow is used.
@@ -69,116 +69,64 @@ $drilldown-arrow-color: #333 !default;
 $drilldown-background: #fff !default;
 $drilldown-list-background-color: crimson;
 
-.table-view {
-  @include modifier ('drilldown') {
-    transition    : all 0.4s;
-    border-top    : none;
-    display       : flex;
-    flex-direction: column;
+@include modifier ('is-drilldown') {
+  transition    : all .4s;
 
-    &.is-open {
-      .drilldown__context {
-        @include icon( '\f068');
-      }
+  ///--------------------------------
+  // Applied to the Menu container
+  .is-drilldown {
+    position: relative;
+    overflow: hidden;
+    width   : 100%;
 
-      .drilldown__menu {
-        background-color: $drilldown-list-background-color;
-        opacity         : 1;
-      }
+    .js-drilldown-back a:before {
+      content: '';
+      left   : 0;
     }
 
-    @include element ('menu') {
-      opacity: 0;
+  }
 
-      a {
-        line-height: 44px;
-      }
+  ///--------------------------------
+  // Applied to nested <ul>s
+  .is-drilldown-submenu {
+    position  : absolute;
+    top       : 0;
+    left      : 100%;
+    z-index   : -1;
+    height    : 100%;
+    width     : 100%;
+    background-color: $drilldown-background;
+    transition: $drilldown-transition;
+
+    &.is-active {
+      z-index  : 1;
+      display  : block;
+      transform: translateX(-100%);
     }
 
-    @include element ('context') {
-      position     : relative;
-      padding      : 1rem;
-      background   : #eee;
-      border-bottom: 1px solid $gray;
-      cursor       : pointer;
-      display      : block;
-      box-sizing   : border-box;
-      overflow     : hidden;
-      user-select  : none;
-      @include icon( '\f067');
-
+    &.is-closing {
+      transform: translateX(100%);
     }
+  }
 
-    // Applied to the Menu container
-    .is-drilldown {
+  ///--------------------------------
+  @if $drilldown-arrows {
+    .is-drilldown-submenu-parent > a {
       position: relative;
-      overflow: hidden;
-      width   : 100%;
 
-      .js-drilldown-back a:before {
-        content: '';
-        left   : 0;
-      }
-
-      li {
-        display: block !important;
-        cursor : pointer;
-        margin : 0;
-        padding: 0;
-
-        &:hover {}
-
-        a {
-          position: relative;
-          display : block;
-          width   : 100%;
-          margin  : 0;
-          padding : 0;
-          @include icon( '\f105');
-        }
+      &::after {
+        position  : absolute;
+        top       : 50%;
+        margin-top: -6px;
       }
     }
 
-    // Applied to nested <ul>s
-    .is-drilldown-submenu {
-      position  : absolute;
-      top       : 0;
-      left      : 100%;
-      z-index   : -1;
-      height    : 100%;
-      width     : 100%;
-      background: $drilldown-background;
-      transition: $drilldown-transition;
-
-      &.is-active {
-        z-index  : 1;
-        display  : block;
-        transform: translateX(-100%);
-      }
-
-      &.is-closing {
-        transform: translateX(100%);
-      }
+    .js-drilldown-back > a::before {
+      border-left-width: 0;
+      display          : inline-block;
+      vertical-align   : middle;
+      margin-right     : .75rem;
     }
-    @if $drilldown-arrows {
-      .is-drilldown-submenu-parent > a {
-        position: relative;
-
-        &::after {
-          position  : absolute;
-          top       : 50%;
-          margin-top: -6px;
-        }
-      }
-
-      .js-drilldown-back > a::before {
-        border-left-width: 0;
-        display          : inline-block;
-        vertical-align   : middle;
-        margin-right     : 0.75rem;
-      }
-    }
-
   }
 
 }

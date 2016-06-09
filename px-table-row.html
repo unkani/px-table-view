@@ -101,9 +101,10 @@ Custom property | Description | Default
     <div class="">
       <div id="row" class="table-row" data-indicator$="{{indicator}}" >
         <template is="dom-if" if="{{editMode}}">
-          <button class="btn btn--bare table-row__delete-btn" on-tap="_handleRemoveItem">
+            <px-table-row-checkbox name="{{title}}"></px-table-row-checkbox>
+          <!-- <button class="btn  table-row__delete-btn" on-tap="_handleRemoveItem">
             <i class="fa fa-minus-circle fa-lg color-red"></i>
-          </button>
+          </button> -->
         </template>
         <template is="dom-if" if="{{label2}}">
           <span class="table-row__label table-row__label--left">{{label2}}</span>
@@ -152,7 +153,7 @@ Custom property | Description | Default
         </div>
       </div>
       <div class="table-row__content">
-        <content select="[content], input, button"></content>
+        <content id="rowContent" select="[content], input, button"></content>
       </div>
       <div id="underlay" class="flex flex--stretch">
         <content id="underlayContent" select="[underlay]"></content>
@@ -270,6 +271,12 @@ Custom property | Description | Default
           type: Boolean
         },
         /**
+         * If the table row should be in edit mode (Checkbox and re-order).
+         */
+        editMode: {
+          type: Boolean
+        },
+        /**
          * The state of the table row if collapsable.
          ```
          <px-table-row title="Grand Parent" modifier="tappable" collapsable opened>
@@ -303,11 +310,12 @@ Custom property | Description | Default
         this.toggleClass('table-row--collapsable--is-opened', newVal, this.$$('.table-row'));
       },
       _handleTap: function (e) {
-          e.preventDefault();
+        e.preventDefault();
         var target = Polymer.dom(e).rootTarget;
         if(this.collapsable){
           this._hideBody();
         }
+        this.fire('px-tap', target);
       }
     });
   </script>

@@ -10,58 +10,39 @@
 <link rel="import" href="px-table-view-drilldown-behavior.html"/>
 <link rel="import" href="px-table-row.html"/>
 <!--
+The `px-table-view` element is for displaying rows of `px-table-row` elements.
+This element implements `iron-selector` for selectable table rows, by default the selected row is not styled.
+
+
 <p>
   For demo visit <a href="demo.html" target="_blank">Full demo here</a> or <a href="demo/mvp1-demo.html" target="_blank">Mobile demo here</a>
 </p>
-<p>
-  For a list of all demos visit  <a href="./demo" target="_blank">here</a>.
-</p>
 
-## Usage
 
-To style this component you can do the following:
+> For a list of all demos visit  <a href="./demo" target="_blank">here</a>.
+
+### Example Usage
 
 ```
-:root {
-  --table-view-border-color: red;
-  --table-view-background-color: green;
-}
+<template id="tmpl1" is="dom-bind">
+  <style is="custom-style">
+    .custom-selected {
+      color: crimson;
+    }
+  </style>
+  <h4>Selected Item = {{selected}}</h4>
+  <px-table-view modifer="small" attr-for-selected="name" selected="{{selected}}" selected-class="custom-selected">
+      <px-table-row name="item-1" title="Item A" icon-left="fa:fa-pencil" modifier="tappable nav-right"></px-table-row>
+      <px-table-row name="item-2" title="Item B" icon-left="fa:fa-pencil" modifier="tappable nav-right"></px-table-row>
+      <px-table-row name="item-3" title="Item C" icon-left="fa:fa-pencil" modifier="tappable nav-right"></px-table-row>
+  </px-table-view>
+</template>
+<script type="text/javascript">
+  var tmpl = document.getElementById('tmpl1');
+  tmpl.selected = 'item-2';
+</script>
 ```
 
-To use this component with iron list you can do the following:
-```
-<div class="demo" style="height: 500px; overflow:auto;">
-  <template id="tableViewTemplate" is="dom-bind">
-    <iron-ajax url="./demo/data.json" last-response="{{data}}" auto></iron-ajax>
-    <iron-list id="ironList" items="[[data]]" as="item" class="table-view  table-view--small">
-      <template>
-        <div class="table-row table-row--nav-right" on-click="handleSelect">
-          <div class="table-row__media table-row__media--icon" hidden="{{!item.icon}}">
-              <i class$="{{item.icon}}"></i>
-          </div>
-          <div class="table-row__media table-row__media--image" hidden="{{!item.image}}">
-            <img src$="{{item.image}}" alt="{{item.title}}">
-          </div>
-          <div class="table-row__content">
-            <span class="table-row__content__title">{{item.title}}</span>
-          </div>
-        </div>
-      </template>
-    </iron-list>
-  </template>
-  <script type="text/javascript">
-    var tmpl = document.getElementById('tableViewTemplate');
-    tmpl.handleSelect = function(e) {
-      console.log('handleSelect', e);
-    };
-    document.addEventListener('WebComponentsReady', function() {
-      setTimeout(function() {
-        document.querySelector('iron-list').fire('iron-resize');
-      }, 50);
-    });
-  </script>
-</div>
-```
 @element px-table-view.html
 @demo demo.html
 @homepage index.html
@@ -113,6 +94,40 @@ To use this component with iron list you can do the following:
     :host.ptr-loading .ptr__loading {
       display: block;
     }
+
+    /* Drilldown Styles
+    :host .is-drilldown{
+      position: relative;
+      overflow: auto;
+      width: 100%;
+    }
+*/
+    :host.is-drilldown-submenu{
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 100%;
+      z-index: -1;
+      height: 100%;
+      width: 100%;
+      background-color: #fff;
+      -webkit-transition: -webkit-transform 0.15s linear;
+      transition: -webkit-transform 0.15s linear;
+      transition: transform 0.15s linear;
+      transition: transform 0.15s linear, -webkit-transform 0.15s linear;
+    }
+    :host.is-active{
+      z-index: 1;
+      display: block;
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
+
+
+
+
+
+
   </style>
   <template strip-whitespace>
     <template is="dom-if" if="{{tableData}}">
@@ -135,7 +150,8 @@ To use this component with iron list you can do the following:
     Polymer({
       is: 'px-table-view',
       behaviors: [
-        Polymer.IronMultiSelectableBehavior, Polymer.IronResizableBehavior,
+        Polymer.IronMultiSelectableBehavior,
+        Polymer.IronResizableBehavior,
         //  pxTableViewSortableBehavior,
         pxTableViewBehavior,
         pxTableViewDrilldownBehavior,
@@ -163,17 +179,34 @@ To use this component with iron list you can do the following:
         isSortable: {
           type: Boolean,
           value: false
+        },
+        /**
+         * If the table view is drilldown set to true
+         */
+        isDrilldown: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * If the table view should be in edit mode (Checkbox and re-order).
+         */
+        editMode: {
+          type: Boolean
         }
       },
+      listeners: {
+        'tap': '_handleTap'
+      },
       /**
-      * A reference to the px-drawer element.
-      * @property drawer
+      * A reference to the table rows.
+      * @property rows
       */
       get rows() {
         if(this.$.tableViewContent){
           return Polymer.dom(this.$.tableViewContent).getDistributedNodes();
         }
       },
+
       _handleModifier: function (newVal, oldVal) {
         var _this = this,
           klass,
@@ -187,6 +220,17 @@ To use this component with iron list you can do the following:
             _this.toggleClass(klass, true, _this.$.content);
           }
         }
+      },
+      _handleTap: function (e) {
+        e.preventDefault();
+        var target = Polymer.dom(e).localTarget;
+        this.fire('px-tap', target);
+
+
+        if(this.isDrilldown){
+          this._handleDrilldownTap(e);
+        }
+
       }
     });
   </script>

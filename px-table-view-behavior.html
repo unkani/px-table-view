@@ -5,9 +5,73 @@
    * @polymerBehavior
    */
   var pxTableViewBehavior = {
+    backButton: '<li class="js-drilldown-back"><a tabindex="0"> <i class="fa fa-lg fa-angle-left"></i> Back</a></li>',
+    _submenus: null,
+    _menuitems: [],
     ready: function () {
       var template = Polymer.dom(this).querySelector('template');
-    //  console.log('template', template)
+      //  console.log('template', template)
+    },
+    attached: function () {
+      if (this.editMode) {
+        this.rows.forEach(function (row) {
+          row.editMode = true;
+          console.log('Edit mode', row);
+        });
+      }
+
+      this.async(function(){
+        if(this.isDrilldown){
+          this._initDrilldown();
+        }
+      }, 250);
+    }
+
+  };
+
+  pxTableViewBehavior._initDrilldown = function(){
+    var self = this;
+    //Find all data-submenu items and add class
+    var submenus = Polymer.dom(this).querySelectorAll('[data-submenu]');
+    submenus.forEach(function(el){
+      console.log('Found sub menu', el);
+      el.classList.add('is-drilldown-submenu');
+      el.setAttribute('role', 'menuitem');
+      self._menuitems.push(el);
+    });
+    this._submenus = submenus;
+  };
+
+
+  pxTableViewBehavior._handleDrilldownTap = function(e){
+    e.preventDefault();
+    var target = Polymer.dom(e).localTarget;
+    console.log('Check if target is a submenu', 'is-active', target);
+
+    var submenu = Polymer.dom(target.$.rowContent).getDistributedNodes()[0];
+    if(submenu){
+      submenu.toggleClass('is-active');
+      console.log('Found sub menu', submenu);
     }
   };
+
+  /**
+	 * Iterates through the nested menus to calculate the min-height, and max-width for the menu.
+	 * Prevents content jumping.
+	 * @function
+	 * @private
+	 */
+	pxTableViewBehavior._getMaxDims = function() {
+		var max = 0, result = {};
+    this._submenus.forEach(function(el) {
+			var numOfElems = el.rows.length;
+			max = numOfElems > max ? numOfElems : max;
+      console.log('Check toggle rows for each submenu', el);
+		});
+
+		result['min-height'] = (max * this._menuitems[0].getBoundingClientRect().height) + 'px';
+		result['max-width'] = (this.getBoundingClientRect().width) + 'px';
+		console.log('_getMaxDims', result);
+		return result;
+	};
 </script>

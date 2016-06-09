@@ -24,7 +24,7 @@
       }
     </style>
     <script type="text/javascript">
-      document.addEventListener('WebComponentsReady', function(){
+      document.addEventListener('WebComponentsReady', function () {
         createToc('toc');
       });
     </script>
@@ -33,10 +33,7 @@
     <div class="viewport viewport-full-height">
       <div class="box u-mb u-mt">
         <h1 class="beta">MVP2</h1>
-        <ol id="toc">
-
-        </ol>
-
+        <ol id="toc"></ol>
       </div>
       <div class="flex flex--col flex--wrap flex--spaced u-bg--gray7 u-padding-10">
         <!-- TODO:  -->
@@ -80,10 +77,34 @@
           </template>
         </demo-snippet>
         <!-- TODO:  -->
-        <h2>Selectable (iron-selector)</h2>
+        <h2>Selectable</h2>
         <demo-snippet class="u-mb">
           <template>
             <template id="tmpl1" is="dom-bind">
+              <style is="custom-style">
+                .custom-selected {
+                  color: crimson;
+                }
+              </style>
+              <h4>Selected Item =
+                {{selected}}</h4>
+              <px-table-view modifer="small" attr-for-selected="name" selected="{{selected}}" selected-class="custom-selected">
+                <px-table-row name="item-1" title="Item A" icon-left="fa:fa-pencil" modifier="tappable nav-right"></px-table-row>
+                <px-table-row name="item-2" title="Item B" icon-left="fa:fa-pencil" modifier="tappable nav-right"></px-table-row>
+                <px-table-row name="item-3" title="Item C" icon-left="fa:fa-pencil" modifier="tappable nav-right"></px-table-row>
+              </px-table-view>
+            </template>
+            <script type="text/javascript">
+              var tmpl = document.getElementById('tmpl1');
+              tmpl.selected = 'item-2';
+            </script>
+          </template>
+        </demo-snippet>
+        <!-- TODO:  -->
+        <h2>Selectable (iron-selector)</h2>
+        <demo-snippet class="u-mb">
+          <template>
+            <template id="tmpl2" is="dom-bind">
               <style is="custom-style">
                 .custom-selected {
                   color: crimson;
@@ -100,7 +121,7 @@
               </px-table-view>
             </template>
             <script type="text/javascript">
-              var tmpl = document.getElementById('tmpl1');
+              var tmpl = document.getElementById('tmpl2');
               tmpl.selected = 'item-2';
             </script>
           </template>
@@ -155,48 +176,38 @@
         <demo-snippet class="u-mb">
           <template id="">
             <style is="custom-style">
-              .custom px-table-row{
-                --px-table-row:{
+              .custom px-table-row {
+                --px-table-row: {
                   border-bottom: none;
                 }
               }
             </style>
             <px-table-view class="custom">
-              <px-table-row title="Grand Parent" modifier="tappable" collapsable opened>
-                <div content>
-                  <px-table-view modifier="tiny">
-                    <px-table-row title="Parent 1" modifier="tappable"  collapsable>
-                      <div content>
-                        <px-table-view modifier="tiny">
-                          <px-table-row title="Child 1-1" modifier="tappable" collapsable>
-                            <div content>
-                              <px-table-view modifier="tiny">
-                                <px-table-row title="Sub-Child 1-1-1" modifier="tappable" ></px-table-row>
-                                <px-table-row title="Sub-Child 1-1-2" modifier="tappable" ></px-table-row>
-                              </px-table-view>
-                            </div>
+              <px-table-row title="Grand Parent" modifier="tappable" collapsable>
+                <px-table-view modifier="tiny" content>
+                  <px-table-row title="Parent" modifier="tappable" collapsable>
+                    <px-table-view modifier="tiny" content>
+                      <px-table-row title="Child" modifier="tappable" collapsable>
+                        <px-table-view modifier="tiny" content>
+                          <px-table-row title="Grand Child" modifier="tappable" collapsable>
+                            <px-table-view modifier="tiny" content>
+                              <px-table-row title="Great Grand Child" modifier="tappable" collapsable>
+                                <px-table-view modifier="tiny" content>
+                                  <px-table-row title="Great Great Grand Child" modifier="tappable"></px-table-row>
+                                  <px-table-row title="Great Great Grand Child" modifier="tappable"></px-table-row>
+                                </px-table-view>
+                              </px-table-row>
+                            </px-table-view>
                           </px-table-row>
-                          <px-table-row title="Child 1-2" modifier="tappable" ></px-table-row>
                         </px-table-view>
-                      </div>
-                    </px-table-row>
-                    <px-table-row title="Parent 2" modifier="tappable" collapsable>
-                      <div content>
-                        <px-table-view modifier="tiny">
-                          <px-table-row title="Child 2-1" modifier="tappable"></px-table-row>
-                          <px-table-row title="Child 2-2" modifier="tappable"></px-table-row>
-                          <px-table-row title="Child 2-3" modifier="tappable"></px-table-row>
-                        </px-table-view>
-                      </div>
-                    </px-table-row>
-                  </px-table-view>
-                </div>
+                      </px-table-row>
+                    </px-table-view>
+                  </px-table-row>
+                </px-table-view>
               </px-table-row>
             </px-table-view>
           </template>
         </demo-snippet>
-
-
         <!-- TODO:  -->
         <h2>Sortable</h2>
         <demo-snippet>
@@ -216,7 +227,6 @@
             </script>
           </template>
         </demo-snippet>
-
         <!-- TODO:  -->
         <h2>Drill Down</h2>
         <demo-snippet>
@@ -224,9 +234,33 @@
             <template id="table-view-demo-8" is="dom-bind">
               <px-table-view drilldown>
                 <template is="dom-repeat" items="[[items]]">
-                  <px-table-row title="Item"></px-table-row>
+                  <px-table-row title="Grand Parent">
+                    <px-table-view content>
+                      <template is="dom-repeat" items="[[items]]">
+                        <px-table-row title="Parent">
+                          <px-table-view content>
+                            <px-table-row title="Child"></px-table-row>
+                            <px-table-row title="Child"></px-table-row>
+                            <px-table-row title="Child"></px-table-row>
+                            <px-table-row title="Child"></px-table-row>
+                          </px-table-view>
+                        </px-table-row>
+                      </template>
+                    </px-table-view>
+                  </px-table-row>
                 </template>
               </px-table-view>
+              <ul class="table-view table-view--drilldown">
+                <template is="dom-repeat" items="[[items]]">
+                  <li><a href="#">Item</a>
+                    <ul>
+                      <template is="dom-repeat" items="[[items]]">
+                        <li><a href="#">Child Item</a></li>
+                      </template>
+                    </ul>
+                  </li>
+                </template>
+              </ul>
             </template>
             <script type="text/javascript">
               document.addEventListener('WebComponentsReady', function () {
@@ -236,32 +270,48 @@
             </script>
           </template>
         </demo-snippet>
-
+        <!-- TODO:  -->
         <h2>Pull to Refresh</h2>
         <demo-snippet>
           <template id="">
             <div class="flex flex--center">
               <div>
                 <device-view device="phone" src="./ptr-mobile.html"></device-view>
-                <a href="./ptr-mobile.html" target="_blank">Open in new page</a>
+                <p>
+                  <a href="./ptr-mobile.html" target="_blank">Open in new page</a>
+                </p>
               </div>
             </div>
           </template>
         </demo-snippet>
-
+        <!-- TODO:  -->
         <h2>Iron List</h2>
         <demo-snippet>
           <template id="">
             <div class="flex flex--center">
               <div>
                 <device-view device="phone" src="./iron-list-demo.html"></device-view>
-                <a href="./iron-list-demo.html" target="_blank">Open in new page</a>
+                <p>
+                  <a href="./iron-list-demo.html" target="_blank">Open in new page</a>
+                </p>
               </div>
             </div>
           </template>
         </demo-snippet>
-
-
+        <!-- TODO:  -->
+        <h2>Swipeable</h2>
+        <demo-snippet>
+          <template id="">
+            <div class="flex flex--center">
+              <div>
+                <device-view device="phone" src="./swipe-actions-mobile.html"></device-view>
+                <p>
+                  <a href="./swipe-actions-mobile.html" target="_blank">Open in new page</a>
+                </p>
+              </div>
+            </div>
+          </template>
+        </demo-snippet>
       </div>
     </div>
     <script src="http://localhost:35724/livereload.js?snipver=1"></script>
