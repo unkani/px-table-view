@@ -88,16 +88,37 @@
       this.$wrapper = this.$element.wrap(this.$wrapper).parent().css(this._getMaxDims());
     }*/
   };
+  pxTableViewBehavior._selectedNodes = [];
   /**
    * Handle when a the table view is a drilldown view and a tap event happens.
    */
   pxTableViewBehavior._handleDrilldownTap = function (e) {
     e.preventDefault();
+    var tmpl = this.$.tableRowTemplate;
+    var item = tmpl.modelForElement(e.target).item;
+    var index = tmpl.indexForElement(e.target);
+    var key = tmpl.keyForElement(e.target);
+
+    console.warn('index', index, 'key', key, 'item', item);
+
+    this._selectedNodes.push(item);
+
+    //If item.children then set the table-data to the children.
+    if(item && item.children){
+      this.set('tableData', item.children);
+    }
+
+
+
+
     var target = Polymer.dom(e).localTarget;
     var submenu = Polymer.dom(target.$.rowContent).getDistributedNodes()[0];
     if (submenu) {
       submenu.toggleClass('is-active');
     }
+
+
+    console.log('drilldown-tap', event, item);
   };
   /**
 	 * Iterates through the nested menus to calculate the min-height, and max-width for the menu.

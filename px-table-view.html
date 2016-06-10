@@ -130,11 +130,6 @@ This element implements `iron-selector` for selectable table rows, by default th
 
   </style>
   <template strip-whitespace>
-    <template is="dom-if" if="{{tableData}}">
-      <template id="tableRowTemplate" items="{{tableData}}" is="dom-repeat">
-        <px-table-row item="{{item}}"></px-table-row>
-      </template>
-    </template>
     <div id="ptr" class="ptr__loader" hidden$="{{!pullToRefresh}}">
       <div class="ptr__loading">
         <span id="l1"></span>
@@ -144,6 +139,9 @@ This element implements `iron-selector` for selectable table rows, by default th
     </div>
     <div id="content" class="table-view">
       <content id="tableViewContent" select="px-table-row, [content]"></content>
+      <template id="tableRowTemplate" items="{{tableData}}" is="dom-repeat">
+        <px-table-row item="{{item}}"></px-table-row>
+      </template>
     </div>
   </template>
   <script>
@@ -158,6 +156,10 @@ This element implements `iron-selector` for selectable table rows, by default th
         pxTableViewPullToRefreshBehavior
       ],
       properties: {
+        selectable: {
+          type: String,
+          value: 'px-table-row'
+        },
         /**
          * The table data to set on the component
          */

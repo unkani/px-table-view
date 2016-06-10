@@ -1,0 +1,24 @@
+[{
+  "id": "item-0",
+  "title": "Products",
+  "children": [{
+    "id": "0-child-0",
+    "title": "Mobile Phones"
+	}, {
+    "id": "0-child-1",
+    "title": "Desktop"
+	}, {
+    "id": "0-child-2",
+    "title": "Laptop"
+	}, {
+    "id": "0-child-3",
+    "title": "Accessories",
+    "children": [{
+      "id": "1-child-0",
+      "title": "Product 1",
+      "children": [{
+        "title": "Part 1"
+			}]
+		}]
+	}]
+}]
