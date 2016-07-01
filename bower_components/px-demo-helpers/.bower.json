@@ -1,0 +1,42 @@
+{
+  "name": "px-demo-helpers",
+  "version": "0.0.3",
+  "authors": [
+    "Jonnie Spratley"
+  ],
+  "description": "A web component that displays code snippets.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PredixDev/px-demo-helpers.git"
+  },
+  "main": "px-example.html",
+  "keywords": [
+    "px",
+    "web-component"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "latest",
+    "juicy-ace-editor": "~1.1.1"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#~1.0.5"
+  },
+  "homepage": "https://github.com/PredixDev/px-demo-helpers",
+  "_release": "0.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.3",
+    "commit": "4156bc27fc45acdeb5a0733200e51d028139a4f1"
+  },
+  "_source": "https://github.com/PredixDev/px-demo-helpers.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/PredixDev/px-demo-helpers.git"
+}
